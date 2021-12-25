@@ -1,6 +1,6 @@
 # BugTracker-NET-Core
 ***
-A bug tracker portofolio project. The website is available [here](https://bugtracky.azurewebsites.net/).
+A bug tracker portofolio project. The website is available [here](https://bugtracky.herokuapp.com/).
 ***
 
 ## Intro
