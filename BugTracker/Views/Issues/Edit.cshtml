@@ -1,0 +1,82 @@
+﻿@model BugTracker.Models.ViewModels.IssueModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "Edit";
+}
+@if (SignInManager.IsSignedIn(User))
+{
+    <h1>Edit</h1>
+
+    <h4>Issue</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="@Model.Issue.Id" />
+                <div class="form-group">
+                    <label asp-for="@Model.Issue.ProjectId" class="control-label"></label>
+                    <select asp-for="@Model.Issue.ProjectId" class="form-control" asp-items="@Model.Projects"></select>
+                    <span asp-validation-for="@Model.Issue.ProjectId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Issue.IssueTypeId" class="control-label"></label>
+                    <select asp-for="@Model.Issue.IssueTypeId" class="form-control" asp-items="@Model.IssueType"></select>
+                    <span asp-validation-for="@Model.Issue.IssueTypeId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Issue.Summary" class="control-label"></label>
+                    <input asp-for="@Model.Issue.Summary" class="form-control" />
+                    <span asp-validation-for="@Model.Issue.Summary" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Issue.Description" class="control-label"></label>
+                    <input asp-for="@Model.Issue.Description" class="form-control" />
+                    <span asp-validation-for="@Model.Issue.Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Issue.ReporterName" class="control-label"></label>
+                    <span asp-validation-for="@Model.Issue.ReporterName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Issue.AssigneeName" class="control-label"></label>
+                    <input asp-for="@Model.Issue.AssigneeName" class="form-control" asp-items="@Model.Assignee" />
+                    <span asp-validation-for="@Model.Issue.AssigneeName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Issue.PriorityId" class="control-label"></label>
+                    <select asp-for="@Model.Issue.PriorityId" class="form-control" asp-items="@Model.Priority"></select>
+                    <span asp-validation-for="@Model.Issue.PriorityId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Issue.CreatedAt" class="control-label"></label>
+                    <input asp-for="@Model.Issue.CreatedAt" class="form-control" />
+                    <span asp-validation-for="@Model.Issue.CreatedAt" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Issue.ModifiedAt" class="control-label"></label>
+                    <input asp-for="@Model.Issue.ModifiedAt" class="form-control" />
+                    <span asp-validation-for="@Model.Issue.ModifiedAt" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a class="btn btn-secondary" asp-action="Index">Back to List</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+            }
+            else
+            {
+                Context.Response.Redirect("/Home");
+
+            }

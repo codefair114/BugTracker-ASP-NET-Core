@@ -1,0 +1,46 @@
+﻿@model IEnumerable<BugTracker.Models.IssueType>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "Issue Types";
+}
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <h1> Issue Types</h1>
+
+    <p>
+        <a class="btn btn-success" asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.IssueTypeName)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IssueTypeName)
+                    </td>
+                    <td>
+                        <a class="btn btn-primary mt-2" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a class="btn btn-secondary mt-2" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        <a class="btn btn-danger mt-2" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    Context.Response.Redirect("/Home");
+
+}

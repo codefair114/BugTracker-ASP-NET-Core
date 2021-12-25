@@ -1,0 +1,71 @@
+﻿@model BugTracker.Models.ViewModels.TempoModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "My Activities";
+}
+@if (SignInManager.IsSignedIn(User))
+{
+    <h1>Create</h1>
+
+    <h4>Tempo</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="@Model.Tempo.Summary" class="control-label"></label>
+                    <input asp-for="@Model.Tempo.Summary" class="form-control" />
+                    <span asp-validation-for="@Model.Tempo.Summary" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Tempo.Description" class="control-label"></label>
+                    <input asp-for="@Model.Tempo.Description" class="form-control" />
+                    <span asp-validation-for="@Model.Tempo.Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Tempo.Hours" class="control-label"></label>
+                    <input asp-for="@Model.Tempo.Hours" class="form-control" />
+                    <span asp-validation-for="@Model.Tempo.Hours" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Tempo.AssigneeName" class="control-label"></label>
+                    <input asp-for="@Model.Tempo.AssigneeName" class="form-control" />
+                    <span asp-validation-for="@Model.Tempo.AssigneeName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Tempo.IssueId" class="control-label"></label>
+                    <select asp-for="@Model.Tempo.IssueId" class="form-control" asp-items="@Model.Issue"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Tempo.CreatedAt" class="control-label"></label>
+                    <input asp-for="@Model.Tempo.CreatedAt" class="form-control" />
+                    <span asp-validation-for="@Model.Tempo.CreatedAt" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Tempo.ModifiedAt" class="control-label"></label>
+                    <input asp-for="@Model.Tempo.ModifiedAt" class="form-control" />
+                    <span asp-validation-for="@Model.Tempo.ModifiedAt" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a class="btn btn-secondary" asp-action="Index">Back to List</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+            }
+            else
+            {
+                Context.Response.Redirect("/Home");
+
+            }

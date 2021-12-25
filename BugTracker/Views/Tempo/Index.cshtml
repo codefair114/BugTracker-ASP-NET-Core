@@ -1,0 +1,86 @@
+﻿@model IEnumerable<BugTracker.Models.Tempo>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "Activities";
+}
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <h1>Activities</h1>
+
+    <p>
+        <a class="btn btn-success" asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Summary)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Hours)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AssigneeName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Issue)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreatedAt)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ModifiedAt)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                @if (item.AssigneeName == @User.Identity.Name)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Summary)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Hours)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AssigneeName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Issue.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedAt)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ModifiedAt)
+                        </td>
+                        <td>
+                            <a class="btn btn-primary mt-2" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                            <a class="btn btn-secondary mt-2" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                            <a class="btn btn-danger mt-2" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    Context.Response.Redirect("/Home");
+
+}
+

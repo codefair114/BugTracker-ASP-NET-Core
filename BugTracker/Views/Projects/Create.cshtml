@@ -1,0 +1,61 @@
+﻿@model BugTracker.Models.ViewModels.ProjectModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "Create Project";
+}
+@if (SignInManager.IsSignedIn(User))
+{
+    <h1>Create</h1>
+
+    <h4>Project</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="@Model.Project.Name" class="control-label"></label>
+                    <input asp-for="@Model.Project.Name" class="form-control" />
+                    <span asp-validation-for="@Model.Project.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Project.CreatorName" class="control-label"></label>
+                    <input asp-for="@Model.Project.CreatorName" class="form-control" />
+                    <span asp-validation-for="@Model.Project.CreatorName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Project.PriorityId" class="control-label"></label>
+                    <select asp-for="@Model.Project.PriorityId" class="form-control" asp-items="@Model.Priority"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Project.CreatedAt" class="control-label"></label>
+                    <input asp-for="@Model.Project.CreatedAt" class="form-control" />
+                    <span asp-validation-for="@Model.Project.CreatedAt" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Project.ModifiedAt" class="control-label"></label>
+                    <input asp-for="@Model.Project.ModifiedAt" class="form-control" />
+                    <span asp-validation-for="@Model.Project.ModifiedAt" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a class="btn btn-secondary" asp-action="Index">Back to List</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+            }
+            else
+            {
+                Context.Response.Redirect("/Home");
+
+            }
